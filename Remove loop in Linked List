@@ -1,0 +1,93 @@
+import java.util.*;
+class Node {
+    int data;
+    Node next;
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+class LoopLL{
+	static Node head;
+	static Node lhead;
+	static Node rhead;
+    public void addToTheLast(Node node) {
+        if (head == null) {
+            head = node;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+       temp.next = node;
+        }
+    }
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+			int n=sc.nextInt();
+			if(n!=0){
+			LoopLL llist = new LoopLL();
+            int a1 = sc.nextInt();
+            Node head = new Node(a1);
+			lhead=head;
+			rhead=head;
+            llist.addToTheLast(head);
+            for (int i=1;i<n;i++) {
+                int a=sc.nextInt();
+                llist.addToTheLast(new Node(a));
+            }
+			}
+			
+			
+			Node tt = head;
+			while(tt.next!=null)
+			tt = tt.next;
+			
+			int l=sc.nextInt();
+			int p=l;
+			if(n>=l){
+			while(l>1){
+				lhead=lhead.next;
+				l--;
+		}
+		
+	//	System.out.println(lhead.data);
+		
+		tt.next = lhead;
+		
+		}
+		
+			GfG g=new GfG();
+			int z=g.removeTheLoop(head);
+			if(z==1)
+				System.out.println("1");
+			else
+				System.out.println("0");
+		}
+	}
+}
+class GfG{
+	  int removeTheLoop(Node node) {
+        //add code here.
+        int flag = 0;
+        Node slow = node.next;
+        Node fast = node.next.next;
+        while(fast!=null && fast.next!=null)
+        {
+            if(slow == fast){
+                flag = 1;
+                break;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if(flag == 1){
+            slow.next = null;
+            return 1;
+        }
+
+        return 0;
+    }
+}
